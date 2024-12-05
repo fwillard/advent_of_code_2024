@@ -54,3 +54,37 @@ count += len(
 )  # down left
 
 print(f"part 1: {count}")
+
+count = 0
+
+count += len(
+    re.findall(
+        rf"M.S[\s\S]{{{width - 1}}}A[\s\S]{{{width - 1}}}M.S",
+        contents,
+        overlapped=True,
+    )
+)
+count += len(
+    re.findall(
+        rf"S.M[\s\S]{{{width - 1}}}A[\s\S]{{{width - 1}}}S.M",
+        contents,
+        overlapped=True,
+    )
+)
+count += len(
+    re.findall(
+        rf"M.M[\s\S]{{{width - 1}}}A[\s\S]{{{width - 1}}}S.S",
+        contents,
+        overlapped=True,
+    )
+)
+count += len(
+    re.findall(
+        rf"S.S[\s\S]{{{width - 1}}}A[\s\S]{{{width - 1}}}M.M",
+        contents,
+        overlapped=True,
+    )
+)
+
+
+print(f"part 2: {count}")
