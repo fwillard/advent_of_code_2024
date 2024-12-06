@@ -2,6 +2,19 @@ from collections import defaultdict
 
 import regex as re
 
+
+def bubble_sort(L, rules):
+    swapped = True
+    n = len(L)
+    while swapped:
+        swapped = False
+        for i in range(1, n):
+            if L[i - 1] in rules[L[i]]:
+                L[i - 1], L[i] = L[i], L[i - 1]
+                swapped = True
+    return L
+
+
 file = open("input.txt")
 
 contents = file.read().split("\n\n")
@@ -14,7 +27,9 @@ updates = [
     [int(num) for num in update.split(",")] for update in contents[1].splitlines()
 ]
 
-total = 0
+
+valid_lists = []
+reordered_lists = []
 for update in updates:
     valid = True
     seen = []
@@ -24,7 +39,19 @@ for update in updates:
                 valid = False
         seen.append(num)
     if valid:
-        middleIdx = int((len(update) - 1) / 2)
-        total += update[middleIdx]
+        valid_lists.append(update)
+    else:
+        reordered_lists.append(update)
 
+total = 0
+for update in valid_lists:
+    middleIdx = int((len(update) - 1) / 2)
+    total += update[middleIdx]
 print(f"part 1: {total}")
+
+total = 0
+for update in reordered_lists:
+    bubble_sort(update, rules)
+    middleIdx = int((len(update) - 1) / 2)
+    total += update[middleIdx]
+print(f"part 2: {total}")
