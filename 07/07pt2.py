@@ -47,4 +47,4 @@ for match in matches:
     if check_equation(operands, total):
         sum += total
 
-print(f"part 1: {sum}")
+print(f"part 2: {sum}")
